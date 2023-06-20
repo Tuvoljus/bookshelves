@@ -25,8 +25,14 @@ function App() {
     };
     getBooks();
 
+    // const moveBook = async (book, shelf) => {
+    //   await BooksAPI.update(book, shelf);
+    // };
     const moveBook = async (book, shelf) => {
-      await BooksAPI.update(book, shelf);
+      book.shelf = shelf;
+      BooksAPI.update(book, shelf).then(() => {
+        setBooks([...books.filter((b) => b.id !== book.id), book]);
+      });
     };
     if (book !== undefined) {
       moveBook(book, shelf);

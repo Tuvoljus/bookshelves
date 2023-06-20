@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import PopupMenu from './PopupMenu';
+import PropTypes from 'prop-types';
 
 function BookCard({ booksOnShelves, onOptionSelect, books, onBookClick }) {
   let navigate = useNavigate();
@@ -20,8 +21,12 @@ function BookCard({ booksOnShelves, onOptionSelect, books, onBookClick }) {
               <div className="book-top">
                 <img
                   className="book-cover"
-                  alt="myIgam"
-                  src={book.imageLinks.thumbnail}
+                  alt={`${book.title}`}
+                  src={
+                    book.imageLinks?.thumbnail
+                      ? book.imageLinks.thumbnail
+                      : './img/default-book.jpg'
+                  }
                 />
                 <PopupMenu
                   booksOnShelves={booksOnShelves}
@@ -44,5 +49,12 @@ function BookCard({ booksOnShelves, onOptionSelect, books, onBookClick }) {
     </>
   );
 }
+
+BookCard.prototype = {
+  booksOnShelves: PropTypes.array.isRequired,
+  onOptionSelect: PropTypes.func.isRequired,
+  onBookClick: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired,
+};
 
 export default BookCard;

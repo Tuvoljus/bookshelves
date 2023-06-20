@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDebounce } from '../utils/useDebounce';
 import * as BooksAPI from '../BooksAPI';
 import BookCard from './BookCard';
 import '../App.css';
 
 const maxSearchResults = 100;
+const debounceDelay = 300;
 
 function BooksSearch({
   booksOnShelves,
@@ -14,17 +16,23 @@ function BooksSearch({
   getBookDetails,
 }) {
   const [query, setQuery] = useState('');
+
+  const debouncedQuery = useDebounce(query, debounceDelay);
+
   useEffect(() => {
-    if (query.length >= 1) {
+    if (debouncedQuery.length >= 1) {
       const getBooks = async () => {
-        const res = await BooksAPI.search(query.trim(), maxSearchResults);
+        const res = await BooksAPI.search(
+          debouncedQuery.trim(),
+          maxSearchResults
+        );
         onSearchResults(res);
       };
       getBooks();
-    } else if (query.length <= 1) {
+    } else if (debouncedQuery.length <= 1) {
       handleDeleteSearchResults([]);
     }
-  }, [query]);
+  }, [debouncedQuery]);
 
   const handlerSearchOnQuery = (searchTerm) => {
     setQuery(searchTerm);
@@ -67,9 +75,7 @@ function BooksSearch({
               <li>No Results</li>
             )}
             {query.length === 0 && searchResults.length === 0 && (
-              <li>
-                Type in inputfield search query for getting searchs results
-              </li>
+              <li>Type in the input field to search for results.</li>
             )}
           </ol>
         </div>

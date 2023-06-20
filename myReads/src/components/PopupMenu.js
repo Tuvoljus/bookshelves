@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function PopupMenu({ booksOnShelves, onOptionSelect, bookId, forEachBook }) {
   const [statusBookOnShelf, setStatusBookOnShelf] = useState('none');
@@ -36,5 +37,12 @@ function PopupMenu({ booksOnShelves, onOptionSelect, bookId, forEachBook }) {
     </div>
   );
 }
+
+PopupMenu.prototype = {
+  booksOnShelves: PropTypes.array.isRequired,
+  onOptionSelect: PropTypes.func.isRequired,
+  bookId: PropTypes.object.isRequired,
+  forEachBook: PropTypes.object.isRequired,
+};
 
 export default PopupMenu;
