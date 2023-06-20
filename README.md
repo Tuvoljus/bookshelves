@@ -19,6 +19,8 @@ To get started developing right away:
 ├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
 ├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
 ├── public
+│   ├── img # Image Folder
+│        └── default-book.jpg # default book cover image
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
@@ -37,6 +39,8 @@ To get started developing right away:
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
     │   └── back-square.svg
+    ├── utils # Helpful images for your app. Use at your discretion.
+    │   └── useDebounce.js # use for timeout in fetch data
     ├── App.css
     ├── BooksAPI.js
     ├── BooksDashboard.js
